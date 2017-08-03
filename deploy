@@ -1,0 +1,8 @@
+-#!/bin/sh      
+ssh ci@testing-ci.livechek.com <<EOF        
+	 
+	git pull       
+	npm install --production       
+	pm2 restart all
+	exit       
+EOF
