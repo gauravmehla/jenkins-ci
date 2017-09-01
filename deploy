@@ -1,8 +1,20 @@
--#!/bin/sh      
-ssh ci@testing-ci.livechek.com <<EOF        
+-#!/bin/sh   
+echo "Deploying to dokku server"   
+git status
+git remote -v
 
-	git pull       
-	npm install --production       
-	pm2 restart all
-	exit       
-EOF
+if git remote | grep dokku > /dev/null;
+then
+echo "dokku already exist";
+else
+echo "dokku remote does not already exist";
+git remote add dokku dokku@testing-ci.livechek.com:testing-ci;
+fi
+git remote -v
+
+echo "Adding all files to staging area.";
+git add .
+echo "Commiting files";
+git commit -m "Deploying to dokku"
+echo "Pushing to dokku server";
+git push dokku master
