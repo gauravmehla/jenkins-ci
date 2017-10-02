@@ -1,5 +1,8 @@
 -#!/bin/sh   
-echo "Deploying to dokku server"   
+echo "Deploying to dokku server"
+echo "Replacing .gitignore with .gitignore-prod"
+  
+cat .gitignore-prod > .gitignore 
 git status
 git remote -v
 
